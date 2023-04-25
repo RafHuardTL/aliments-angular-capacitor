@@ -6,11 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import { ErplibreRestService } from './erplibre-rest.service';
+import { DialogService } from './dialog.service';
 
 @NgModule({
 	declarations: [AppComponent],
 	imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-	providers: [ErplibreRestService],
+	providers: [ErplibreRestService, DialogService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

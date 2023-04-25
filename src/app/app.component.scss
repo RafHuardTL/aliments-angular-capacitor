@@ -1,0 +1,67 @@
+::ng-deep :root {
+	--banner__color: #2474be;
+	--text__color: #f3f3f3;
+	--aliment__background-color: #f3f3f3;
+	--edit__color: #0053a1;
+	--delete__color: #a10000;
+	--add__color: rgb(0, 156, 0);
+	font-size: 16px;
+}
+
+::ng-deep *,
+::ng-deep *::before,
+::ng-deep *::after {
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+}
+
+.banner {
+	background-color: var(--banner__color);
+	padding: 1rem;
+	&__text {
+		color: var(--text__color);
+	}
+}
+
+.aliments {
+	list-style: none;
+	padding: 1rem;
+	margin-bottom: 4rem;
+}
+
+.aliment {
+	background-color: var(--aliment__background-color);
+	border-radius: 0.25rem;
+	display: flex;
+	overflow: hidden;
+	&__text {
+		display: block;
+		height: 100%;
+		padding: 1rem;
+		width: 100%;
+	}
+	&__edit,
+	&__delete {
+		width: 4rem;
+	}
+	&__edit {
+		background-color: var(--edit__color);
+	}
+	&__delete {
+		background-color: var(--delete__color);
+	}
+	&__add {
+		border-radius: 50%;
+		background-color: var(--add__color);
+		bottom: 0.5rem;
+		height: 4rem;
+		position: fixed;
+		right: 0.5rem;
+		width: 4rem;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+	}
+	& + & {
+		margin-top: 1rem;
+	}
+}

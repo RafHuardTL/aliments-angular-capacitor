@@ -1,5 +1,11 @@
-<h1>{{ title }}</h1>
-<div>Hello World!</div>
+<div class="banner">
+	<h2 class="banner__text">{{ title }}</h2>
+</div>
 <ul class="aliments" *ngIf="aliments">
-	<li *ngFor="let aliment of aliments">{{ aliment.name }}</li>
+	<li *ngFor="let aliment of aliments" class="aliment">
+		<span class="aliment__text">{{ aliment.name }}</span>
+		<div class="aliment__edit" (click)="editAliment(aliment.id)"></div>
+		<div class="aliment__delete" (click)="deleteAliment(aliment.id)"></div>
+	</li>
 </ul>
+<div class="aliment__add" (click)="addAliment()"></div>
