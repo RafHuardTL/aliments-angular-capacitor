@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CapacitorHttp } from '@capacitor/core';
 import { env } from '../environments/environment';
 import { Observable, Subject, from } from 'rxjs';
