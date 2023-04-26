@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ErplibreRestService } from './erplibre-rest.service';
 import { DialogService } from './dialog.service';
+import { ActionSheetService } from './action-sheet.service';
 import { AlimentModel } from 'src/models/aliment.model';
 
 @Component({
@@ -9,12 +10,13 @@ import { AlimentModel } from 'src/models/aliment.model';
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-	title = 'aliments-angular-capacitor';
+	title = 'Aliments';
 	aliments: AlimentModel[] = [];
 
 	constructor(
 		private erplibreRest: ErplibreRestService,
-		private dialogService: DialogService
+		private dialogService: DialogService,
+		private actionSheetService: ActionSheetService
 	) {}
 
 	ngOnInit() {
@@ -25,9 +27,26 @@ export class AppComponent {
 		});
 	}
 
+	alimentOptions(id: number) {
+		this.actionSheetService
+			.showActions('Options', 'Modifier ou supprimer un aliment.', [
+				{
+					title: 'Modifier',
+				},
+				{
+					title: 'Supprimer',
+				},
+			])
+			.subscribe((response) => {
+				response.index === 0
+					? this.editAliment(id)
+					: this.deleteAliment(id);
+			});
+	}
+
 	addAliment() {
 		this.dialogService
-			.showPrompt('Ajout', 'Donnez un nom au nouvel aliment.')
+			.showPrompt('Ajouter', 'Donnez un nom au nouvel aliment.')
 			.subscribe((promptResponse) => {
 				if (!promptResponse.cancelled && promptResponse.value) {
 					this.erplibreRest
@@ -74,8 +93,8 @@ export class AppComponent {
 		const name = this.aliments.find((aliment) => aliment.id === id)?.name;
 		this.dialogService
 			.showConfirm(
-				'Suppression',
-				`Voulez-vous vraiment supprimer l'aliment ${name}?`
+				'Supprimer',
+				`Voulez-vous vraiment supprimer l'aliment «${name}»?`
 			)
 			.subscribe((confirmResponse) => {
 				if (confirmResponse.value) {

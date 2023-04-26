@@ -7,11 +7,12 @@ import { AppComponent } from './app.component';
 
 import { ErplibreRestService } from './erplibre-rest.service';
 import { DialogService } from './dialog.service';
+import { ActionSheetService } from './action-sheet.service';
 
 @NgModule({
 	declarations: [AppComponent],
 	imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-	providers: [ErplibreRestService, DialogService],
+	providers: [ErplibreRestService, DialogService, ActionSheetService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
