@@ -1,13 +1,17 @@
-<div class="banner">
-	<h2 class="banner__text">{{ title }}</h2>
-	<div class="aliment__add" (click)="addAliment()"></div>
+<div id="main">
+	<div class="banner">
+		<div class="banner__content">
+			<h2 class="banner__text">{{ title }}</h2>
+			<div class="aliment__add" (click)="addAliment()"></div>
+		</div>
+	</div>
+	<ul class="aliments" *ngIf="aliments">
+		<li *ngFor="let aliment of aliments" class="aliment">
+			<span class="aliment__text">{{ aliment.name }}</span>
+			<div
+				class="aliment__options"
+				(click)="alimentOptions(aliment.id)"
+			></div>
+		</li>
+	</ul>
 </div>
-<ul class="aliments" *ngIf="aliments">
-	<li *ngFor="let aliment of aliments" class="aliment">
-		<span class="aliment__text">{{ aliment.name }}</span>
-		<div
-			class="aliment__options"
-			(click)="alimentOptions(aliment.id)"
-		></div>
-	</li>
-</ul>
