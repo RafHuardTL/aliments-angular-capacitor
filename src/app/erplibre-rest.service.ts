@@ -49,19 +49,19 @@ export class ErplibreRestService {
 	getAliments(): Observable<AlimentModel[]> {
 		const subject = new Subject<AlimentModel[]>();
 		this.auth().subscribe({
-			next: (v: any) => {
+			next: (authResponse: any) => {
 				if (Capacitor.isNativePlatform()) {
 					from(
 						CapacitorHttp.get({
 							url: env.apiUrl + '/api/xmlrpc_base.aliment',
 							headers: {
-								access_token: v.data.access_token,
+								access_token: authResponse.data.access_token,
 							},
 						})
 					).subscribe({
-						next: (v: any) => {
+						next: (getResponse: any) => {
 							const aliments: AlimentModel[] = [];
-							for (const aliment of v.data.data) {
+							for (const aliment of getResponse.data.data) {
 								aliments.push(
 									new AlimentModel(aliment.id, aliment.name)
 								);
@@ -74,12 +74,12 @@ export class ErplibreRestService {
 					this.http
 						.get('/api/xmlrpc_base.aliment', {
 							headers: {
-								access_token: v.access_token,
+								access_token: authResponse.access_token,
 							},
 						})
-						.subscribe((response: any) => {
+						.subscribe((getResponse: any) => {
 							const aliments: AlimentModel[] = [];
-							for (const aliment of response.data) {
+							for (const aliment of getResponse.data) {
 								aliments.push(
 									new AlimentModel(aliment.id, aliment.name)
 								);
@@ -99,7 +99,7 @@ export class ErplibreRestService {
 	addAliment(name: string): Observable<AlimentModel> {
 		const subject = new Subject<AlimentModel>();
 		this.auth().subscribe({
-			next: (v: any) => {
+			next: (authResponse: any) => {
 				if (Capacitor.isNativePlatform()) {
 					from(
 						CapacitorHttp.post({
@@ -109,15 +109,15 @@ export class ErplibreRestService {
 							},
 							headers: {
 								'Content-Type': 'application/jsonp',
-								access_token: v.data.access_token,
+								access_token: authResponse.data.access_token,
 							},
 						})
 					).subscribe({
-						next: (v: any) => {
+						next: (postResponse: any) => {
 							subject.next(
 								new AlimentModel(
-									v.data.data[0].id,
-									v.data.data[0].name
+									postResponse.data.data[0].id,
+									postResponse.data.data[0].name
 								)
 							);
 							subject.complete();
@@ -133,7 +133,7 @@ export class ErplibreRestService {
 							{
 								headers: {
 									'Content-Type': 'application/jsonp',
-									access_token: v.access_token,
+									access_token: authResponse.access_token,
 								},
 							}
 						)
@@ -160,19 +160,19 @@ export class ErplibreRestService {
 	deleteAliment(id: number): Observable<AlimentModel> {
 		const subject = new Subject<AlimentModel>();
 		this.auth().subscribe({
-			next: (v: any) => {
+			next: (authResponse: any) => {
 				if (Capacitor.isNativePlatform()) {
 					from(
 						CapacitorHttp.delete({
 							url: env.apiUrl + '/api/xmlrpc_base.aliment/' + id,
 							headers: {
 								'Content-Type': 'application/jsonp',
-								access_token: v.data.access_token,
+								access_token: authResponse.data.access_token,
 							},
 						})
 					).subscribe({
-						next: (v: any) => {
-							subject.next(v.data.data);
+						next: (deleteResponse: any) => {
+							subject.next(deleteResponse.data.data);
 							subject.complete();
 						},
 					});
@@ -181,7 +181,7 @@ export class ErplibreRestService {
 						.delete('/api/xmlrpc_base.aliment/' + id, {
 							headers: {
 								'Content-Type': 'application/jsonp',
-								access_token: v.access_token,
+								access_token: authResponse.access_token,
 							},
 						})
 						.subscribe({
@@ -202,7 +202,7 @@ export class ErplibreRestService {
 	updateAliment(id: number, newName: string): Observable<AlimentModel> {
 		const subject = new Subject<AlimentModel>();
 		this.auth().subscribe({
-			next: (v: any) => {
+			next: (authResponse: any) => {
 				if (Capacitor.isNativePlatform()) {
 					from(
 						CapacitorHttp.put({
@@ -212,15 +212,15 @@ export class ErplibreRestService {
 							},
 							headers: {
 								'Content-Type': 'application/jsonp',
-								access_token: v.data.access_token,
+								access_token: authResponse.data.access_token,
 							},
 						})
 					).subscribe({
-						next: (v: any) => {
+						next: (putResponse: any) => {
 							subject.next(
 								new AlimentModel(
-									v.data.data[0].id,
-									v.data.data[0].name
+									putResponse.data.data[0].id,
+									putResponse.data.data[0].name
 								)
 							);
 							subject.complete();
@@ -236,7 +236,7 @@ export class ErplibreRestService {
 							{
 								headers: {
 									'Content-Type': 'application/jsonp',
-									access_token: v.access_token,
+									access_token: authResponse.access_token,
 								},
 							}
 						)
