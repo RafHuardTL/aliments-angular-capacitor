@@ -20,10 +20,8 @@ export class AppComponent {
 	) {}
 
 	ngOnInit() {
-		this.erplibreRest.getAliments().subscribe({
-			next: (aliments: AlimentModel[]) => {
-				this.aliments = aliments;
-			},
+		this.erplibreRest.getAliments().subscribe((response) => {
+			this.aliments = response;
 		});
 	}
 
@@ -56,7 +54,7 @@ export class AppComponent {
 								this.aliments.push(addResponse);
 							},
 							error: (e) => {
-								console.log(e);
+								console.error(e);
 							},
 						});
 				}
@@ -100,7 +98,6 @@ export class AppComponent {
 				if (confirmResponse.value) {
 					this.erplibreRest.deleteAliment(id).subscribe({
 						next: (deleteResponse: any) => {
-							console.log(deleteResponse);
 							this.aliments = this.aliments.filter(
 								(aliment) => aliment.id !== id
 							);
